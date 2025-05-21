@@ -116,27 +116,90 @@ let logbad = new Login(“pepe”, “bad”) // alert -&gt; <span class="hljs-k
 // Ejercicio 4
 
 // Ejercicio 5
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo Login</title>
+</head>
+<body>
+    <button id="loginSuccess">Login Exitoso</button>
+    <button id="loginFailure">Login Fallido</button>
 
-// Ejercicio 6
+    <script>
+        class Usuario {
+            constructor(username, password) {
+                this.username = username;
+                this.password = password;
+            }
 
-let loginWitUsername = (username, password) => {
-    return new Promise(function (resolve, rejected) {
-        setTimeout(() => {
-        if (username === "admin" && password === "passwd") {
-            resolve("User logged in");
-        } else {
-            rejected("Error: invalid username or password");
+            login() {
+                if (this.username === "admin" && this.password === "passwd") {
+                    alert("Usuario logeado exitosamente.");
+                } else {
+                    alert("Usuario o contraseña incorrectos.");
+                }
+            }
         }
-        }, 200);
-    });
-};</code>
-</pre>
 
-        </div>
-    </div>
-    <script src="../../prism.js"></script>
-    <script src="index.js">
+        document.getElementById("loginSuccess").addEventListener("click", () => {
+            const loginCorrecto = new Usuario("admin", "passwd");
+            loginCorrecto.login(); // Llama a login con datos correctos
+        });
+
+        document.getElementById("loginFailure").addEventListener("click", () => {
+            const loginIncorrecto = new Usuario("usuario", "contrasena");
+            loginIncorrecto.login(); // Llama a login con datos incorrectos
+        });
     </script>
 </body>
+</html>
+// Ejercicio 6
 
+
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo Login Asíncrono</title>
+</head>
+<body>
+    <button id="loginSuccessAsync">Login Exitoso Asíncrono</button>
+    <button id="loginFailureAsync">Login Fallido Asíncrono</button>
+
+    <script>
+        // Simulación de una función de login asíncrona
+        const loginWithUsername = (username, password) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (username === "admin" && password === "passwd") {
+                        resolve({ success: true, message: "Usuario logeado exitosamente (async)." });
+                    } else {
+                        reject(new Error("Usuario o contraseña incorrectos (async)."));
+                    }
+                }, 1000); // Simula un retardo de 1 segundo
+            });
+        };
+
+        document.getElementById("loginSuccessAsync").addEventListener("click", async () => {
+            try {
+                const resultado = await loginWithUsername("admin", "passwd");
+                alert(resultado.message); // Muestra la alerta de éxito
+            } catch (error) {
+                console.error(error.message); // Maneja el error
+            }
+        });
+
+        document.getElementById("loginFailureAsync").addEventListener("click", async () => {
+            try {
+                const resultado = await loginWithUsername("usuario", "contrasena");
+                alert(resultado.message);
+            } catch (error) {
+                alert(error.message); // Muestra la alerta de fallo
+            }
+        });
+    </script>
+</body>
 </html>
