@@ -73,9 +73,50 @@ vehicle.openThrottle();
 console.log("Tipo de vehículo desconocido.");
   }
 }
+  // --- Implementaciones de ejemplo de las clases para probar ---
+
 class MyCar implements Car {
   tires: number = 4;
 
+  turnOnEngine(): void {
+    console.log("Coche: Motor encendido.");
+  }
 
+  pressPedal(): void {
+    console.log("Coche: Pedal presionado.");
+  }
+}
+
+class MyMotorcycle implements Motorcycle {
+  tires: number = 2;
+
+  turnOnEngine(): void {
+    console.log("Motocicleta: Motor encendido.");
+  }
+
+  openThrottle(): void {
+    console.log("Motocicleta: Acelerador abierto.");
+  }
+}
+// --- Ejemplos de uso ---
+
+let myCarInstance = new MyCar();
+let myMotorcycleInstance = new MyMotorcycle();
+
+console.log("--- Operando Coche ---");
+operateVehicle(myCarInstance);
   
 // Ejercicio 4
+//Función genérica que acepta un array y devuelve un nuevo array
+  let removeFirstElement = <T>(arr: T[]): T[] => {
+    return arr.slice(1);
+};
+  // --- Ejemplos de uso ---
+  // Array mixto (strings y numbers)
+let mixto = ["uno", 2, "tres", 4, "cinco"];
+let mixtoSinPrimero = removeFirstElement(mixto);
+console.log("Array original (mixto):", mixto);
+console.log("Array sin el primer elemento (mixto):", mixtoSinPrimero);
+// Salida: [2, "tres", 4, "cinco"]
+  
+  
